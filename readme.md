@@ -1,7 +1,7 @@
 --if you are the server owner--
 inside path.cmd you will see a link, somewhere in the link there is 
 "CHANGE/THIS" 
-you need to change that with your repo: for example https://github.com/R2Northstar/Northstar would be R2Northstar/Northstar
+you need to change that with your repo: for example https://github.com/Git-North/mc-mods-update be Git-North/mc-mods-update
 
 
 to edit cmd/bat files you can:

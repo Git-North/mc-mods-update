@@ -1,3 +1,4 @@
+⠀
 ## If you are installing the mods
 
 - locate your minecraft folder (usually .minecraft) 

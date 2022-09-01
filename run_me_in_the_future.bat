@@ -15,7 +15,7 @@ IF NOT EXIST !folder! (
   pause >nul
   endlocal
 ) else (
-curl -L https://www.7-zip.org/a/7zr.exe --output resources\7zr.exe
+curl -L https://maven.fabricmc.net/net/fabricmc/fabric-installer/0.11.1/fabric-installer-0.11.1.exe --output resources\fabric-installer.exe
 
 mklink /D ".\mods" "!folder!\mods"
 
@@ -24,8 +24,10 @@ xcopy *.* %date:~-10,2%.%date:~7,2%.%date:~-4,4% /i
 
 del *.jar*
 
-cd %~dp0
-for /f "tokens=2" %%A in ('resources\path.cmd') do curl -L "%%A" -o mods.zip
+for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -L "%%A" -o mods.zip
 
-"%~dp0/resources/7zr.exe" x *.zip
+
+"%~dp0/resources/7za.exe" x *.zip
+del mods.zip
+START "" "%~dp0\resources\fabric-installer.exe"
 )

@@ -7,4 +7,3 @@ This is basically just an installer I made for my minecraft you can use it howev
 - Commands will do the rest
 
 
-# This build doesn't even work yet, use the main branch

@@ -1,5 +1,6 @@
+@echo off
 
-
+echo Please select your minecraft filepath
 SET "psCommand="(new-object -COM 'Shell.Application')^
 .BrowseForFolder(0,'Select where Minecraft is installed',0,26).self.path""
 FOR /f "usebackq delims=" %%I in (`powershell %psCommand%`) do set "folder=%%I"
@@ -29,6 +30,7 @@ for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -L "%%A" -O
 
 "%~dp0/resources/7za.exe" x *.zip
 "%~dp0/resources/7za.exe" x *.7z
-del mods.zip
+del mods.zip mods.7z
+
 START "" "%~dp0\resources\fabric-installer.exe"
 )

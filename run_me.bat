@@ -28,6 +28,7 @@ for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -L "%%A" -o mods.z
 
 
 "%~dp0/resources/7za.exe" x *.zip
+"%~dp0/resources/7za.exe" x *.7z
 del mods.zip
 START "" "%~dp0\resources\fabric-installer.exe"
 )

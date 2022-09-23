@@ -24,7 +24,7 @@ xcopy *.* %date:~-10,2%.%date:~7,2%.%date:~-4,4% /i
 
 del *.jar*
 
-for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -L "%%A" -o mods.zip
+for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -L "%%A" -O
 
 
 "%~dp0/resources/7za.exe" x *.zip

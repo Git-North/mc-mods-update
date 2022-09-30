@@ -6,6 +6,7 @@ SET "psCommand="(new-object -COM 'Shell.Application')^
 FOR /f "usebackq delims=" %%I in (`powershell %psCommand%`) do set "folder=%%I"
 
 setlocal enabledelayedexpansion
+mkdir !folder!\mods
 set dest=!folder!\mods
 
 

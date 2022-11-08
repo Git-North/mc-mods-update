@@ -1,4 +1,5 @@
 @echo off
+setlocal enabledelayedexpansion
 
 echo Please select your minecraft filepath
 SET "psCommand="(new-object -COM 'Shell.Application')^
@@ -6,18 +7,19 @@ SET "psCommand="(new-object -COM 'Shell.Application')^
 FOR /f "usebackq delims=" %%I in (`powershell %psCommand%`) do set "folder=%%I"
 
 
-
-setlocal enabledelayedexpansion
 mkdir !folder!\mods
 set dest=!folder!\mods
 
 
-IF NOT EXIST !folder! (
-  echo no folder selected or folder not found.
-  <nul set /p "=Press any key to exit...
-  pause >nul
-  endlocal
-) else (
+
+::IF NOT EXIST !folder! (
+::pause
+::  echo no folder selected or folder not found.
+::  pause
+::  <nul set /p "=Press any key to exit..."
+::  pause >nul
+::  endlocal
+:: ) else (
 
 
 

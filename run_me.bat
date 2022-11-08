@@ -9,13 +9,11 @@ FOR /f "usebackq delims=" %%I in (`powershell %psCommand%`) do set "folder=%%I"
 
 mkdir !folder!\mods
 set dest=!folder!\mods
-
+pause
 
 
 ::IF NOT EXIST !folder! (
-::pause
 ::  echo no folder selected or folder not found.
-::  pause
 ::  <nul set /p "=Press any key to exit..."
 ::  pause >nul
 ::  endlocal

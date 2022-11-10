@@ -2,26 +2,16 @@
 setlocal enabledelayedexpansion
 
 echo Please select your minecraft filepath
-SET "psCommand="(new-object -COM 'Shell.Application')^
-.BrowseForFolder(0,'Select where Minecraft is installed',0,26).self.path""
-FOR /f "usebackq delims=" %%I in (`powershell %psCommand%`) do set "folder=%%I"
+FOR /f "tokens=* delims=" %%I in (`resources\mcdir.txt`) do set "folder=%%I"
+
 
 
 mkdir !folder!\mods
 set dest=!folder!\mods
-pause
-
-
-::IF NOT EXIST !folder! (
-::  echo no folder selected or folder not found.
-::  <nul set /p "=Press any key to exit..."
-::  pause >nul
-::  endlocal
-:: ) else (
 
 
 
-mklink /D ".\mods" "!folder!\mods"
+mklink /D ".\mods" "!dest!"
 
 cd !folder!\mods
 xcopy *.* %date:~-10,2%.%date:~7,2%.%date:~-4,4% /i

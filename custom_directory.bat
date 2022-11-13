@@ -7,4 +7,5 @@ FOR /f "usebackq delims=" %%I in (`powershell %psCommand%`) do set "folder=%%I"
 
 echo "!folder!" > resources\mcdir.txt
 @echo on
+timeout /t 7 /nobreak
 call run_me.bat

@@ -1,7 +1,6 @@
 @echo off
 setlocal enabledelayedexpansion
 
-echo Please select your minecraft filepath
 FOR /f "tokens=* delims=" %%I in (`resources\mcdir.txt`) do set "folder=%%I"
 
 

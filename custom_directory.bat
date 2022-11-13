@@ -6,6 +6,7 @@ SET "psCommand="(new-object -COM 'Shell.Application')^
 FOR /f "usebackq delims=" %%I in (`powershell %psCommand%`) do set "folder=%%I"
 
 echo "!folder!" > resources\mcdir.txt
-@echo on
+echo Wait if you want the script to continue
 timeout /t 7 /nobreak
+@echo on
 call run_me.bat

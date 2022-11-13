@@ -6,14 +6,16 @@ FOR /f "tokens=* delims=" %%I in (`resources\mcdir.txt`) do set "folder=%%I"
 
 
 mkdir !folder!\mods
+mkdir !folder!\.backups-of-old-mods
 set dest=!folder!\mods
+set backups=!folder!\.backups-of-old-mods
 
 
 
 mklink /D ".\mods" "!dest!"
 
 cd !folder!\mods
-xcopy *.* %date:~-10,2%.%date:~7,2%.%date:~-4,4% /i
+xcopy *.* !backups!\%date:~-10,2%.%date:~7,2%.%date:~-4,4% /i
 
 del *.jar*
 

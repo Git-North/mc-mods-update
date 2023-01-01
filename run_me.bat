@@ -23,6 +23,7 @@ for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -L "%%A" -O
 
 "%~dp0/resources/7za.exe" x *.zip
 "%~dp0/resources/7za.exe" x *.7z
+"%~dp0/resources/7za.exe" x *.rar
 del mods.zip mods.7z
 
 cd "%~dp0\resources\"

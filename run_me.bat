@@ -24,15 +24,17 @@ SET /p choice=Would you like the repo mods or do you just wanna install local mo
 echo ######################################################################################
 
 IF NOT '%choice%'=='' SET choice=%choice:~0,1%
-IF /i '%choice%'=='Y' GOTO yes
-IF /i '%choice%'=='N' GOTO no
+IF /i '%choice%'=='Y' GOTO curlyes
+IF /i '%choice%'=='N' GOTO rest
 
 
 :curlyes
 for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -L "%%A" -O
 
+GOTO rest
 :rest
 xcopy *.* !dest!
+
 
 "%~dp0/resources/7za.exe" x *.zip
 "%~dp0/resources/7za.exe" x *.7z

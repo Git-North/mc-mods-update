@@ -26,8 +26,8 @@ echo ###########################################################################
 
 :curlyes
 for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -L "%%A" -O
-:rest
 
+:rest
 xcopy *.* !dest!
 
 "%~dp0/resources/7za.exe" x *.zip

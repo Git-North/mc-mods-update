@@ -40,7 +40,7 @@ xcopy *.* !dest!
 "%~dp0/resources/7za.exe" x *.zip
 "%~dp0/resources/7za.exe" x *.7z
 "%~dp0/resources/7za.exe" x *.rar
-del mods.zip mods.7z
+del *.zip *.7z *.rar
 
 cd "%~dp0\resources\"
 for /f "tokens=2" %%B in ('quiltmc-path.cmd') do echo %%B >> curlthis.tmp

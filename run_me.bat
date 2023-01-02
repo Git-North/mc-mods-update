@@ -17,9 +17,10 @@ xcopy *.* .disabled\%date:~-10,2%.%date:~7,2%.%date:~-4,4% /i
 
 del *.jar*
 
-cd %~dp0\
+cd !pending!
 for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -L "%%A" -O
 
+xcopy *.* !dest!
 
 "%~dp0/resources/7za.exe" x *.zip
 "%~dp0/resources/7za.exe" x *.7z

@@ -6,9 +6,8 @@ FOR /f "tokens=* delims=" %%I in (`resources\mcdir.txt`) do set "folder=%%I"
 
 
 mkdir !folder!\mods
-mkdir !folder!\.backups-of-old-mods
 set dest=!folder!\mods
-
+set pending=%~dp0\pending_mods
 
 
 mklink /D ".\mods" "!dest!"
@@ -18,6 +17,7 @@ xcopy *.* .disabled\%date:~-10,2%.%date:~7,2%.%date:~-4,4% /i
 
 del *.jar*
 
+cd %~dp0\
 for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -L "%%A" -O
 
 

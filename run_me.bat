@@ -34,13 +34,14 @@ for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -L "%%A" -O
 
 GOTO rest
 :rest
-xcopy *.* !dest!
+
 
 
 "%~dp0/resources/7za.exe" x *.zip
 "%~dp0/resources/7za.exe" x *.7z
 "%~dp0/resources/7za.exe" x *.rar
 del *.zip *.7z *.rar
+xcopy *.* !dest!
 
 cd "%~dp0\resources\"
 for /f "tokens=2" %%B in ('quiltmc-path.cmd') do echo %%B >> curlthis.tmp

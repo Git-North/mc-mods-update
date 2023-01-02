@@ -24,8 +24,9 @@ SET /p choice=Would you like the repo mods or do you just wanna install local mo
 echo ######################################################################################
 
 IF NOT '%choice%'=='' SET choice=%choice:~0,1%
-IF /i '%choice%'=='Y' GOTO curlyes
-IF /i '%choice%'=='N' GOTO rest
+IF /i '%choice%'=='1' GOTO curlyes
+IF '%choice%'=='' GOTO curlyes
+IF /i '%choice%'=='2' GOTO rest
 
 
 :curlyes

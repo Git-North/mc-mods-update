@@ -20,8 +20,12 @@ del *.jar*
 
 cd !pending!
 echo ######################################################################################
-echo Would you like the repo mods or do you just wanna install local mods? [Default is '1']
+SET /p choice=Would you like the repo mods or do you just wanna install local mods? [Default is '1']
 echo ######################################################################################
+
+IF NOT '%choice%'=='' SET choice=%choice:~0,1%
+IF /i '%choice%'=='Y' GOTO yes
+IF /i '%choice%'=='N' GOTO no
 
 
 :curlyes

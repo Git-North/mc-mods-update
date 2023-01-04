@@ -5,7 +5,7 @@ FOR /f "tokens=* delims=" %%I in (`resources\mcdir.txt`) do set "folder=%%I"
 
 
 
-set /p pathchoice= Would you like to choose your minecraft path rather than the default one? (%appdata%/.minecraft) [Default is No]
+set /p pathchoice= Would you like to choose your minecraft path rather than the default one? (%appdata%/.minecraft) [Default is 'No' which is recommended for most people]
 ::echo Please select your minecraft filepath
 ::SET "psCommand="(new-object -COM 'Shell.Application')^
 ::.BrowseForFolder(0,'Select where Minecraft is installed',0,26).self.path""

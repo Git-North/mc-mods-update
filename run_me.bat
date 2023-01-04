@@ -5,6 +5,16 @@ FOR /f "tokens=* delims=" %%I in (`resources\mcdir.txt`) do set "folder=%%I"
 
 
 
+
+::echo Please select your minecraft filepath
+::SET "psCommand="(new-object -COM 'Shell.Application')^
+::.BrowseForFolder(0,'Select where Minecraft is installed',0,26).self.path""
+::FOR /f "usebackq delims=" %%I in (`powershell %psCommand%`) do set "folder=%%I"
+::
+::echo "!folder!" > resources\mcdir.txt
+
+
+
 mkdir !folder!\mods
 set dest=!folder!\mods
 set pending=%~dp0\pending_mods

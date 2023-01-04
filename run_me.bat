@@ -6,6 +6,8 @@ FOR /f "tokens=* delims=" %%I in (`resources\mcdir.txt`) do set "folder=%%I"
 
 
 set /p pathchoice= Would you like to choose your minecraft path rather than the default one? (%appdata%/.minecraft) [Default is 'No' which is recommended for most people]
+
+:pathcustom
 ::echo Please select your minecraft filepath
 ::SET "psCommand="(new-object -COM 'Shell.Application')^
 ::.BrowseForFolder(0,'Select where Minecraft is installed',0,26).self.path""
@@ -13,8 +15,8 @@ set /p pathchoice= Would you like to choose your minecraft path rather than the 
 ::
 ::echo "!folder!" > resources\mcdir.txt
 
-
-
+::GOTO rest1
+:rest1
 mkdir !folder!\mods
 set dest=!folder!\mods
 set pending=%~dp0\pending_mods
@@ -42,8 +44,8 @@ IF /i '%choice%'=='2' GOTO rest
 :curlyes
 for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -L "%%A" -O
 
-GOTO rest
-:rest
+GOTO rest2
+:rest2
 
 
 

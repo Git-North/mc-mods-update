@@ -4,9 +4,10 @@ setlocal enabledelayedexpansion
 FOR /f "tokens=* delims=" %%I in (.\resources\mcdir.txt) do set "folder=%%I"
 
 
-
+echo ##############################################################################################################################################################################################
 set /p pathchoice=Would you like to choose your minecraft path rather than the default one? "(Default path is %appdata%\minecraft)" [Default selection is 'No' which is recommended for most people]
-::
+echo ##############################################################################################################################################################################################
+
 
 IF '%pathchoice%' == '' GOTO rest1
 IF /i '%pathchoice%' == 'no' GOTO rest1
@@ -40,15 +41,15 @@ set pending=%~dp0\pending_mods
 mklink /D ".\mods" "!dest!"
 
 cd !folder!\mods
-xcopy *.* .disabled\%date:~-10,2%.%date:~7,2%.%date:~-4,4% /i
+xcopy *.* ".\.disabled\%date:~-10,2%.%date:~7,2%.%date:~-4,4%" /i
 
 del *.jar*
 
 
 cd !pending!
-echo ######################################################################################
-SET /p choice=Would you like the repo mods or do you just wanna install local mods? [Default is '1']
-echo ######################################################################################
+echo ################################################################################################
+SET /p choice=Would you like to install the repo mods or do just install local mods? [Default is '1']
+echo ################################################################################################
 
 IF NOT '%choice%'=='' SET choice=%choice:~0,1%
 IF /i '%choice%'=='1' GOTO curlyes

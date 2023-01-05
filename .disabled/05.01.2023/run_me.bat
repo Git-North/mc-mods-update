@@ -27,9 +27,7 @@ FOR /f "usebackq delims=" %%I in (`powershell %psCommand%`) do set "folder=%%I"
 
 :thisbishempty
 echo "!folder!" > resources\mcdir.txt
-if not !folder! == '' GOTO rest1
-if !folder! == '' GOTO thisbishempty
-::IF /f "tokens=* delims=" %%I in (`resources/mcdir.txt`) == '' do GOTO thisbishempty "
+IF /f "tokens=* delims=" %%I in (`resources/mcdir.txt`) == '' do GOTO thisbishempty "
 
 GOTO rest1
 :rest1

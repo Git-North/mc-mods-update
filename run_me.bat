@@ -5,7 +5,7 @@ FOR /f "tokens=* delims=" %%I in (`resources\mcdir.txt`) do set "folder=%%I"
 
 
 
-set /p pathchoice= Would you like to choose your minecraft path rather than the default one? (%appdata%/.minecraft) [Default is 'No' which is recommended for most people]
+set /p pathchoice= Would you like to choose your minecraft path rather than the default one? "(%appdata%/.minecraft)" [Default is 'No' which is recommended for most people]
 
 
 IF '%pathchoice%' = '' GOTO rest1

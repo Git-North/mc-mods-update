@@ -5,7 +5,7 @@ FOR /f "tokens=* delims=" %%I in (.\resources\mcdir.txt) do set "folder=%%I"
 
 
 
-set /p pathchoice= Would you like to choose your minecraft path rather than the default one? "(%appdata%\minecraft)" [Default is 'No' which is recommended for most people]
+set /p pathchoice=Would you like to choose your minecraft path rather than the default one? "(Default path is %appdata%\minecraft)" [Default selection is 'No' which is recommended for most people]
 ::
 
 IF '%pathchoice%' == '' GOTO rest1
@@ -29,7 +29,6 @@ FOR /f "usebackq delims=" %%I in (`powershell %psCommand%`) do set "folder=%%I"
 echo "!folder!" > resources\mcdir.txt
 if not !folder! == '' GOTO rest1
 if !folder! == '' GOTO thisbishempty
-::IF /f "tokens=* delims=" %%I in (`resources/mcdir.txt`) == '' do GOTO thisbishempty "
 
 GOTO rest1
 :rest1
@@ -58,7 +57,7 @@ IF /i '%choice%'=='2' GOTO rest
 
 
 :curlyes
-for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -k -L "%%A" -O
+for /f "tokens=2" %%A in (%~dp0\resources\path.cmd) do curl --insecure -L -I "%%A" -O
 
 GOTO rest2
 :rest2

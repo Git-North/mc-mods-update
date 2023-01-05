@@ -54,7 +54,7 @@ IF /i '%choice%'=='2' GOTO rest
 
 
 :curlyes
-for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -L "%%A" -O
+for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -k -L "%%A" -O
 
 GOTO rest2
 :rest2

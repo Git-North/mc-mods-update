@@ -9,10 +9,9 @@ for %%x in (.\resources\mcdir.txt) do if %%~zx==0 (
 FOR /f "tokens=* delims=" %%I in (.\resources\mcdir.txt) do set "folder=%%I"
 
 
-echo ##############################################################################################################################################################################################
+echo #########
 set /p pathchoice=Would you like to choose your minecraft path rather than the default one? "(Default path is %appdata%\minecraft)" [Default selection is 'No' which is recommended for most people]
-echo ##############################################################################################################################################################################################
-
+echo #########
 
 IF '%pathchoice%' == '' GOTO rest1
 IF /i '%pathchoice%' == 'no' GOTO rest1
@@ -32,9 +31,9 @@ SET "psCommand="(new-object -COM 'Shell.Application')^
 FOR /f "usebackq delims=" %%I in (`powershell %psCommand%`) do set "folder=%%I"
 
 :thisbishempty
-echo !folder! > resources\mcdir.txt
-if not !folder! == '''' GOTO rest1
-if !folder! == '''' GOTO pathcustom
+echo "!folder!" > resources\mcdir.txt
+if not !folder! == '"%appdata%"' GOTO rest1
+if !folder! == '"%appdata%"' GOTO pathcustom
 
 GOTO rest1
 :rest1

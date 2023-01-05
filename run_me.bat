@@ -32,7 +32,7 @@ SET "psCommand="(new-object -COM 'Shell.Application')^
 FOR /f "usebackq delims=" %%I in (`powershell %psCommand%`) do set "folder=%%I"
 
 :thisbishempty
-echo "!folder!" > resources\mcdir.txt
+echo !folder! > resources\mcdir.txt
 if not !folder! == '''' GOTO rest1
 if !folder! == '''' GOTO pathcustom
 

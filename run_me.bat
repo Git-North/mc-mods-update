@@ -1,22 +1,22 @@
 @echo off
 setlocal enabledelayedexpansion
 :START
-FOR /f "tokens=* delims=" %%I in (`resources\mcdir.txt`) do set "folder=%%I"
+FOR /f "tokens=* delims=" %%I in (.\resources\mcdir.txt) do set "folder=%%I"
 
 
 
-set /p pathchoice= Would you like to choose your minecraft path rather than the default one? "(%appdata%/.minecraft)" [Default is 'No' which is recommended for most people]
+set /p pathchoice= Would you like to choose your minecraft path rather than the default one? "(%appdata%\minecraft)" [Default is 'No' which is recommended for most people]
 ::
 
-IF '%pathchoice%' = '' GOTO rest1
-IF /i '%pathchoice%' = 'no' GOTO rest1
-IF /i '%pathchoice%' = 'n' GOTO rest1
-IF '%pathchoice%' = '0' GOTO rest1
+IF '%pathchoice%' == '' GOTO rest1
+IF /i '%pathchoice%' == 'no' GOTO rest1
+IF /i '%pathchoice%' == 'n' GOTO rest1
+IF '%pathchoice%' == '0' GOTO rest1
 
-IF /i '%pathchoice%' = 'yes' GOTO pathcustom
-IF /i '%pathchoice%' = 'ye' GOTO pathcustom
-IF /i '%pathchoice%' = 'y' GOTO pathcustom
-IF '%pathchoice%' = '1' GOTO pathcustom
+IF /i '%pathchoice%' == 'yes' GOTO pathcustom
+IF /i '%pathchoice%' == 'ye' GOTO pathcustom
+IF /i '%pathchoice%' == 'y' GOTO pathcustom
+IF '%pathchoice%' == '1' GOTO pathcustom
 
 
 :pathcustom
@@ -25,7 +25,9 @@ SET "psCommand="(new-object -COM 'Shell.Application')^
 .BrowseForFolder(0,'Select where Minecraft is installed',0,26).self.path""
 FOR /f "usebackq delims=" %%I in (`powershell %psCommand%`) do set "folder=%%I"
 
+:thisbishempty
 echo "!folder!" > resources\mcdir.txt
+IF /f "tokens=* delims=" %%I in (`resources/mcdir.txt`) == '' do GOTO thisbishempty "
 
 GOTO rest1
 :rest1

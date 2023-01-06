@@ -7,7 +7,8 @@ for %%x in (.\resources\mcdir.txt) do if %%~zx==0 (
     echo "%appdata%\.minecraft" > .\resources\mcdir.txt
 )
 FOR /f "tokens=* delims=" %%I in (.\resources\mcdir.txt) do set "dfolder=%%I"
-set !dfolder! = folder 
+
+set !dfolder!=folder
 
 echo #########
 set /p pathchoice=Would you like to choose your minecraft path rather than the default one? "(Default path is %appdata%\minecraft)" [Default selection is 'No' which is recommended for most people]
@@ -66,7 +67,7 @@ IF /i '%choice%'=='2' GOTO rest
 
 
 :curlyes
-for /f "tokens=2" %%A in (%~dp0\resources\path.cmd) do curl -L -I "%%A" -O
+for /f "tokens=2" %%A in (%~dp0\resources\path.cmd) do curl -L -I %%A -O
 
 GOTO rest2
 :rest2

@@ -6,8 +6,8 @@ setlocal enabledelayedexpansion
 for %%x in (.\resources\mcdir.txt) do if %%~zx==0 (
     echo "%appdata%\.minecraft" > .\resources\mcdir.txt
 )
-FOR /f "tokens=* delims=" %%I in (.\resources\mcdir.txt) do set "folder=%%I"
-
+FOR /f "tokens=* delims=" %%I in (.\resources\mcdir.txt) do set "dfolder=%%I"
+set !dfolder! = folder 
 
 echo #########
 set /p pathchoice=Would you like to choose your minecraft path rather than the default one? "(Default path is %appdata%\minecraft)" [Default selection is 'No' which is recommended for most people]
@@ -29,6 +29,10 @@ echo Please select your minecraft filepath
 SET "psCommand="(new-object -COM 'Shell.Application')^
 .BrowseForFolder(0,'Select where Minecraft is installed',0,26).self.path""
 FOR /f "usebackq delims=" %%I in (`powershell %psCommand%`) do set "folder=%%I"
+set quofold="!folder!"
+
+:: !folder! is 
+if not !quofold! == 
 
 :thisbishempty
 echo "!folder!" > resources\mcdir.txt
@@ -41,8 +45,8 @@ mkdir !folder!\mods
 set dest=!folder!\mods
 set pending=%~dp0\pending_mods
 
-
-mklink /D ".\mods" "!dest!"
+rmdir %~dp0\mods
+mklink /D "%~dp0\mods" "!dest!"
 
 cd !folder!\mods
 xcopy *.* ".\.disabled\%date:~-10,2%.%date:~7,2%.%date:~-4,4%" /i
@@ -62,7 +66,7 @@ IF /i '%choice%'=='2' GOTO rest
 
 
 :curlyes
-for /f "tokens=2" %%A in (%~dp0\resources\path.cmd) do curl --insecure -L -I "%%A" -O
+for /f "tokens=2" %%A in (%~dp0\resources\path.cmd) do curl -L -I "%%A" -O
 
 GOTO rest2
 :rest2

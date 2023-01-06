@@ -32,7 +32,7 @@ FOR /f "usebackq delims=" %%I in (`powershell %psCommand%`) do set "folder=%%I"
 set quofold="!folder!"
 
 :: !folder! is 
-if not !quofold! == 
+:: if not !quofold! == 
 
 :thisbishempty
 echo "!folder!" > resources\mcdir.txt

@@ -32,8 +32,8 @@ FOR /f "usebackq delims=" %%I in (`powershell %psCommand%`) do set "folder=%%I"
 
 :thisbishempty
 echo "!folder!" > resources\mcdir.txt
-if not !folder! == '"%appdata%"' GOTO rest1
-if !folder! == '"%appdata%"' GOTO pathcustom
+if not !folder! == '%appdata%' GOTO rest1
+if !folder! == '%appdata%' GOTO pathcustom
 
 GOTO rest1
 :rest1

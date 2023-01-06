@@ -47,7 +47,7 @@ mklink /D ".\mods" "!dest!"
 cd !folder!\mods
 xcopy *.* ".\.disabled\%date:~-10,2%.%date:~7,2%.%date:~-4,4%" /i
 
-del *.jar*
+del *.jar
 
 
 cd !pending!

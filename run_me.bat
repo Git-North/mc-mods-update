@@ -55,7 +55,7 @@ xcopy *.* ".\.disabled\%date:~-10,2%.%date:~7,2%.%date:~-4,4%" /i
 del *.jar
 
 
-cd !pending!
+0000cd !pending!
 echo ################################################################################################
 SET /p choice=Would you like to install the repo mods or do just install local mods? [Default is '1']
 echo ################################################################################################
@@ -67,7 +67,7 @@ IF /i '%choice%'=='2' GOTO rest
 
 
 :curlyes
-for /f "tokens=2" %%A in (%~dp0\resources\path.cmd) do curl -L -I %%A -O
+for /f "tokens=2" %%A in (%~dp0resources\path.cmd) do curl -L -I %%A -O
 
 GOTO rest2
 :rest2
@@ -83,7 +83,7 @@ xcopy *.* !dest!
 cd "%~dp0\resources\"
 for /f "tokens=2" %%B in ('quiltmc-path.cmd') do echo %%B >> curlthis.tmp
 powershell -command (Get-Content -Path '.\curlthis.tmp' -TotalCount 2)[-1] > latest.tmp
-for /f "Tokens=* Delims=" %%q in (latest.tmp) do curl -L %%q -o "quilt-installer.exe"
+for /f "Tokens=* Delims=" %%Q in (latest.tmp) do curl -L %%Q -o "quilt-installer.exe"
 del *.tmp
 
 START "" "%~dp0\resources\quilt-installer.exe"

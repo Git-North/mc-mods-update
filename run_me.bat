@@ -55,7 +55,7 @@ xcopy *.* ".\.disabled\%date:~-10,2%.%date:~7,2%.%date:~-4,4%" /i
 del *.jar
 
 
-0000cd !pending!
+cd !pending!
 echo ################################################################################################
 SET /p choice=Would you like to install the repo mods or do just install local mods? [Default is '1']
 echo ################################################################################################

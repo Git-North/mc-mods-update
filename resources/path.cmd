@@ -1,1 +1,1 @@
-curl -k -s https://api.github.com/repos/Git-North/mc-mods-update/releases/latest | findstr browser_download_url
+curl https://api.github.com/repos/Git-North/mc-mods-update/releases/latest -k -S | findstr browser_download_url 

@@ -1,5 +1,16 @@
 chcp 65001
 
+:: set LOGFILE=batch.log
+:: call :LOG > %LOGFILE%
+:: exit /B
+
+:: :LOG
+:: [ your script goes here ]
+
+
+
+
+
 @echo off
 setlocal enabledelayedexpansion
 :START

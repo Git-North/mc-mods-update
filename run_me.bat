@@ -1,3 +1,5 @@
+
+
 chcp 65001
 
 @echo off
@@ -7,6 +9,11 @@ for %%x in (.\resources\mcdir.txt) do if %%~zx==0 (
     echo "%appdata%\.minecraft" > .\resources\mcdir.txt
 )
 FOR /f "tokens=* delims=" %%I in (.\resources\mcdir.txt) do set "dfolder=%%I"
+
+
+
+set %localappdata%\Packages\Microsoft.4297127D64EC6_8wekyb3d8bbwe\LocalCache\Local\runtime\java-runtime-beta\windows-x64\java-runtime-beta\bin\=javafolder
+set !javafolder!\javaw.exe=javapath
 
 set !dfolder!=folder
 
@@ -55,19 +62,19 @@ xcopy *.* ".\.disabled\%date:~-10,2%.%date:~7,2%.%date:~-4,4%" /i
 del *.jar
 
 
-cd !pending!
-echo ################################################################################################
-SET /p choice=Would you like to install the repo mods or do just install local mods? [Default is '1']
-echo ################################################################################################
+::cd !pending!
+::echo ################################################################################################
+::SET /p choice=Would you like to install the repo mods or do just install local mods? [Default is '1']
+::echo ################################################################################################
 
-IF NOT '%choice%'=='' SET choice=%choice:~0,1%
-IF /i '%choice%'=='1' GOTO curlyes
-IF '%choice%'=='' GOTO curlyes
-IF /i '%choice%'=='2' GOTO rest
+::IF NOT '%choice%'=='' SET choice=%choice:~0,1%
+::IF /i '%choice%'=='1' GOTO curlyes
+::IF '%choice%'=='' GOTO curlyes
+::IF /i '%choice%'=='2' GOTO rest
 
 
 :curlyes
-for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -L "%%A" -O
+for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -L -k "%%A" -O
 
 GOTO rest2
 :rest2
@@ -80,11 +87,11 @@ GOTO rest2
 del *.zip *.7z *.rar
 xcopy *.* !dest!
 
-cd "%~dp0\resources\"
-for /f "tokens=2" %%B in ('quiltmc-path.cmd') do echo %%B >> curlthis.tmp
-powershell -command (Get-Content -Path '.\curlthis.tmp' -TotalCount 2)[-1] > latest.tmp
-for /f "Tokens=* Delims=" %%Q in (latest.tmp) do curl -L %%Q -o "quilt-installer.exe"
-del *.tmp
+::cd "%~dp0\resources\"
+::for /f "tokens=2" %%B in ('quiltmc-path.cmd') do echo %%B >> curlthis.tmp
+::powershell -command (Get-Content -Path '.\curlthis.tmp' -TotalCount 2)[-1] > latest.tmp
+::for /f "Tokens=* Delims=" %%Q in (latest.tmp) do curl -L %%Q -o "quilt-installer.exe"
+::del *.tmp
 
-START "" "%~dp0\resources\quilt-installer.exe"
-)
+::START "" "%~dp0\resources\quilt-installer.exe"
+::)

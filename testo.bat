@@ -6,3 +6,5 @@ del *.tmp
 
 START "" "%~dp0\resources\quilt-installer.exe"
 )
+
+::https://gist.github.com/YoraiLevi/e1888ee1c06b34cb02d4b58b739301af

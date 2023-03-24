@@ -8,14 +8,13 @@ setlocal enabledelayedexpansion
 for %%x in (.\resources\mcdir.txt) do if %%~zx==0 (
     echo "%appdata%\.minecraft" > .\resources\mcdir.txt
 )
-FOR /f "tokens=* delims=" %%I in (.\resources\mcdir.txt) do set "dfolder=%%I"
+FOR /f "tokens=* delims=" %%I in (.\resources\mcdir.txt) do set "folder=%%I"
 
 
 
 set %localappdata%\Packages\Microsoft.4297127D64EC6_8wekyb3d8bbwe\LocalCache\Local\runtime\java-runtime-beta\windows-x64\java-runtime-beta\bin\=javafolder
 set !javafolder!\javaw.exe=javapath
 
-set !dfolder!=folder
 
 echo #########
 set /p pathchoice=Would you like to choose your minecraft path rather than the default one? "(Default path is %appdata%\minecraft)" [Default selection is 'No' which is recommended for most people]

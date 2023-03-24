@@ -37,10 +37,6 @@ echo Please select your minecraft filepath
 SET "psCommand="(new-object -COM 'Shell.Application')^
 .BrowseForFolder(0,'Select where Minecraft is installed',0,26).self.path""
 FOR /f "usebackq delims=" %%I in (`powershell %psCommand%`) do set "folder=%%I"
-set quofold="!folder!"
-
-:: !folder! is 
-:: if not !quofold! == 
 
 :thisbishempty
 echo "!folder!" > resources\mcdir.txt

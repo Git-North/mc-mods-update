@@ -1,3 +1,5 @@
+
+
 chcp 65001
 
 :: set LOGFILE=batch.log
@@ -17,9 +19,13 @@ setlocal enabledelayedexpansion
 for %%x in (.\resources\mcdir.txt) do if %%~zx==0 (
     echo "%appdata%\.minecraft" > .\resources\mcdir.txt
 )
-FOR /f "tokens=* delims=" %%I in (.\resources\mcdir.txt) do set "dfolder=%%I"
+FOR /f "tokens=* delims=" %%I in (.\resources\mcdir.txt) do set "folder=%%I"
 
-set !dfolder!=folder
+
+
+set %localappdata%\Packages\Microsoft.4297127D64EC6_8wekyb3d8bbwe\LocalCache\Local\runtime\java-runtime-beta\windows-x64\java-runtime-beta\bin\=javafolder
+set !javafolder!\javaw.exe=javapath
+
 
 echo #########
 set /p pathchoice=Would you like to choose your minecraft path rather than the default one? "(Default path is %appdata%\minecraft)" [Default selection is 'No' which is recommended for most people]
@@ -41,10 +47,6 @@ echo Please select your minecraft filepath
 SET "psCommand="(new-object -COM 'Shell.Application')^
 .BrowseForFolder(0,'Select where Minecraft is installed',0,26).self.path""
 FOR /f "usebackq delims=" %%I in (`powershell %psCommand%`) do set "folder=%%I"
-set quofold="!folder!"
-
-:: !folder! is 
-:: if not !quofold! == 
 
 :thisbishempty
 echo "!folder!" > resources\mcdir.txt
@@ -66,19 +68,19 @@ xcopy *.* ".\.disabled\%date:~-10,2%.%date:~7,2%.%date:~-4,4%" /i
 del *.jar
 
 
-cd !pending!
-echo ################################################################################################
-SET /p choice=Would you like to install the repo mods or do just install local mods? [Default is '1']
-echo ################################################################################################
+::cd !pending!
+::echo ################################################################################################
+::SET /p choice=Would you like to install the repo mods or do just install local mods? [Default is '1']
+::echo ################################################################################################
 
-IF NOT '%choice%'=='' SET choice=%choice:~0,1%
-IF /i '%choice%'=='1' GOTO curlyes
-IF '%choice%'=='' GOTO curlyes
-IF /i '%choice%'=='2' GOTO rest
+::IF NOT '%choice%'=='' SET choice=%choice:~0,1%
+::IF /i '%choice%'=='1' GOTO curlyes
+::IF '%choice%'=='' GOTO curlyes
+::IF /i '%choice%'=='2' GOTO rest
 
 
 :curlyes
-for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -L "%%A" -O
+for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -L -k "%%A" -O
 
 GOTO rest2
 :rest2

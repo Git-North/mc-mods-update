@@ -1,1 +1,1 @@
-"C:\Users\Öğrenci\AppData\Roaming" 
+"C:\Users\Öğrenci\AppData\Roaming\.minecraft" 

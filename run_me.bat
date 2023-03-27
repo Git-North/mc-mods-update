@@ -60,6 +60,7 @@ set dest=!folder!\mods
 set pending=%~dp0\pending_mods
 
 rmdir %~dp0\mods
+echo !dest!
 mklink /D "%~dp0\mods" "!dest!"
 
 cd !folder!\mods

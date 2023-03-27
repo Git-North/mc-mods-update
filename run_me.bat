@@ -34,7 +34,6 @@ for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -L "%%A" -O
 "%~dp0/resources/7za.exe" x *.7z
 del mods.zip mods.7z
 
-START "" "%~dp0\resources\fabric-installer.exe"
 
 cd "%~dp0\resources\"
 for /f "tokens=2" %%B in ('quiltmc-path.cmd') do echo %%B >> curlthis.tmp

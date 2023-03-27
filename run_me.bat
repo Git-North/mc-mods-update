@@ -17,9 +17,9 @@ IF NOT EXIST !folder! (
   <nul set /p "=Press any key to exit...
   pause >nul
   endlocal
-) else (
+) else ( goto rest )
 
-
+:rest
 mklink /D ".\mods" "!folder!\mods"
 
 cd !folder!\mods
@@ -44,4 +44,4 @@ del *.tmp
 
 START "" "%~dp0\resources\quilt-installer.exe"
 
-)
+

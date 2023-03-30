@@ -10,14 +10,15 @@ chcp 65001
 :: [ your script goes here ]
 
 
-
+curl -s https://www.7-zip.org/a/7zr.exe -o resources/7zr.exe
 
 
 @echo off
 setlocal enabledelayedexpansion
 :START
+powershell -command New-Item -Path .\resources -Name "mcdir.txt"
 for %%x in (.\resources\mcdir.txt) do if %%~zx==0 (
-    echo "%appdata%\.minecraft" > .\resources\mcdir.txt
+    echo "%appdata%\.minecraft"> .\resources\mcdir.txt
 )
 FOR /f "tokens=* delims=" %%I in (.\resources\mcdir.txt) do set "folder=%%I"
 
@@ -63,8 +64,17 @@ rmdir %~dp0\mods
 echo !dest!
 mklink /D "%~dp0\mods" "!dest!"
 
+rem random string
+SET subkey1=%random%
+
+SET subkey1=%subkey1:0=a%
+SET subkey1=%subkey1:1=b%
+SET subkey1=%subkey1:2=c%
+
+rem folder date
+
 cd !folder!\mods
-xcopy *.* ".\.disabled\%date:~-10,2%.%date:~7,2%.%date:~-4,4%" /i
+xcopy *.* ".\.disabled\%date:~-10,2%.%date:~7,2%.%date:~-4,4%;%subkey1%" /i
 
 del *.jar
 
@@ -88,9 +98,10 @@ GOTO rest2
 
 
 
-"%~dp0/resources/7za.exe" x *.zip
-"%~dp0/resources/7za.exe" x *.7z
-"%~dp0/resources/7za.exe" x *.rar
+"%~dp0/resources/7zr.exe" x *.7z
+for %%f in (*.zip) do tar -xf "%%f"
+
+
 del *.zip *.7z *.rar
 xcopy *.* !dest!
 

@@ -6,7 +6,7 @@ chcp 65001
 setlocal enabledelayedexpansion
 :START
 for %%x in (.\resources\mcdir.txt) do if %%~zx==0 (
-    echo "%appdata%\.minecraft" > .\resources\mcdir.txt
+    echo "%appdata%\.minecraft" > .\resources\\mcdir.txt
 )
 FOR /f "tokens=* delims=" %%I in (.\resources\mcdir.txt) do set "folder=%%I"
 

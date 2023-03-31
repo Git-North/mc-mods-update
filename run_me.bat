@@ -1,29 +1,31 @@
 chcp 65001
 
-curl -s <https://www.7-zip.org/a/7zr.exe> -o resources/7zr.exe
+rmdir %temp%\mc-mods-installer
+mkdir %temp%\mc-mods-installer\
+cd %temp%\mc-mods-installer\
 
+curl https://raw.githubusercontent.com/Git-North/mc-mods-update/oneliner//path.cmd -O -L 
+curl https://raw.githubusercontent.com/Git-North/mc-mods-update/oneliner//quiltmc-path.cmd -O -L
+echo "%appdata%\.minecraft"> .\mcdir.txt
+curl -s https://www.7-zip.org/a/7zr.exe -o 7zr.exe
+ 
 @echo off
 setlocal enabledelayedexpansion
 :START
-rem Create a new mcdir.txt file in the resources directory
-powershell -command New-Item -Path .\resources -Name "mcdir.txt"
-rem Check if the file size is 0, if it is, then set the contents to '%appdata%\.minecraft'
-for %%x in (.\resources\mcdir.txt) do if %%~zx==0 (
-    echo "%appdata%\.minecraft"> .\resources\mcdir.txt
-)
-rem Read the contents of the mcdir.txt file into the 'folder' variable
-FOR /f "tokens=* delims=" %%I in (.\resources\mcdir.txt) do set "folder=%%I"
 
-rem Set the 'javafolder' variable to the path of the java folder
+cd %temp%\mc-mods-installer
+FOR /f "tokens=* delims=" %%I in (.\mcdir.txt) do set "folder=%%I"
 
-rem Set the 'javapath' variable to the path of the javaw.exe file
 
-rem Ask the user if they want to choose a custom Minecraft filepath or use the default one
+
+set %localappdata%\Packages\Microsoft.4297127D64EC6_8wekyb3d8bbwe\LocalCache\Local\runtime\java-runtime-beta\windows-x64\java-runtime-beta\bin\=javafolder
+set !javafolder!\javaw.exe=javapath
+
+
 echo # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 set /p pathchoice=Would you like to choose your minecraft path rather than the default one? "(Default path is %appdata%\.minecraft)" [Default selection is 'No' which is recommended for most people]
 echo # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 
-rem Check the user's response and set the 'folder' variable accordingly
 IF '%pathchoice%' == '' GOTO rest1
 IF /i '%pathchoice%' == 'no' GOTO rest1
 IF /i '%pathchoice%' == 'n' GOTO rest1
@@ -34,83 +36,61 @@ IF /i '%pathchoice%' == 'ye' GOTO pathcustom
 IF /i '%pathchoice%' == 'y' GOTO pathcustom
 IF '%pathchoice%' == '1' GOTO pathcustom
 
+
 :pathcustom
-rem Ask the user to select their Minecraft filepath
 echo Please select your minecraft filepath
 SET "psCommand="(new-object -COM 'Shell.Application')^
 .BrowseForFolder(0,'Select where Minecraft is installed',0,26).self.path""
 FOR /f "usebackq delims=" %%I in (`powershell %psCommand%`) do set "folder=%%I"
 
 :thisbishempty
-rem Write the 'folder' variable to the mcdir.txt file
-echo "!folder!" > resources\mcdir.txt
-rem Check if the 'folder' variable is not equal to '%appdata%', if it is, then continue to the next step, otherwise go back to the 'pathcustom' label
+echo "!folder!" > \mcdir.txt
 if not !folder! == '%appdata%' GOTO rest1
 if !folder! == '%appdata%' GOTO pathcustom
 
 GOTO rest1
 :rest1
-rem Create a 'mods' folder in the 'folder' directory
 mkdir !folder!\mods
-rem Set the 'dest' variable to the 'mods' folder path
 set dest=!folder!\mods
-rem Set the 'pending' variable to the 'pending_mods' folder path
-set pending=%~dp0\pending_mods
+set pending=%temp%\mc-mods-installer\pending_mods
 
-rem Delete the 'mods' folder in the current directory
-rmdir %~dp0\mods
-echo !dest!
-rem Create a symbolic link to the 'dest' folder for the 'mods' folder in the current directory
-mklink /D "%~dp0\mods" "!dest!"
-
-rem Set the 'subkey1' variable to a random number
 SET subkey1=%random%
 
-rem Replace all 0s in 'subkey1' with 'a', all 1s with 'b', and all 2s with 'c'
 SET subkey1=%subkey1:0=a%
 SET subkey1=%subkey1:1=b%
 SET subkey1=%subkey1:2=c%
 
-rem Copy all files in the 'mods' folder to a new folder with the name 'mm.dd.yyyy;subkey1' in the 'disabled' folder
+rem folder date
+
 cd !folder!\mods
 xcopy *.* ".\.disabled\%date:~-10,2%.%date:~7,2%.%date:~-4,4%;%subkey1%" /i
 
-rem Delete all .jar files in the 'mods' folder
 del *.jar
 
+
 :curlyes
-rem Download the resource at the URL specified in the 'path.cmd' file and save it in the current directory
-for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -L -k "%%A" -O
-rem Delete the 'latest' file
+for /f "tokens=2" %%A in ('%temp%\mc-mods-installer\path.cmd') do curl -L -k "%%A" -O
 del latest
+
 
 GOTO rest2
 :rest2
 
-rem Extract all .7z files in the current directory using 7zr.exe
-"%~dp0/resources/7zr.exe" x *.7z
-rem Extract all .zip files in the current directory using tar.exe
+
+
+"%temp%\mc-mods-installer\7zr.exe" x *.7z
 for %%f in (*.zip) do tar -xf "%%f"
 
-rem Delete all .zip, .7z, and .rar files in the current directory
+
 del *.zip *.7z *.rar
-rem Copy all files in the current directory to the 'dest' folder
 xcopy *.* !dest!
 
-rem Create a 'modloader' folder in the current directory
-mkdir %~dp0\modloader
-cd "%~dp0\resources"
-rem Append the URL specified in the 'quiltmc-path.cmd' file to the 'curlthis.tmp' file
+mkdir %temp%\mc-mods-installer\
+cd "%temp%\mc-mods-installer\"
 for /f "tokens=2" %%B in ('quiltmc-path.cmd') do echo %%B >> curlthis.tmp
-rem Get the last line of the 'curlthis.tmp' file and save it to the 'latest.tmp' file
 powershell -command (Get-Content -Path '.\curlthis.tmp' -TotalCount 2)[-1] > latest.tmp
-rem Download the resource at the URL specified in the 'latest.tmp' file and save it as 'quilt-installer.exe'
 for /f "Tokens=* Delims=" %%Q in (latest.tmp) do curl -L %%Q -o "quilt-installer.exe"
-rem Delete all temporary files
 del *.tmp
 
-rem Copy 'quilt-installer.exe' to the 'modloader' folder
-xcopy quilt-installer.exe "%~dp0\modloader\" /Y
-
-rem Start 'quilt-installer.exe'
-START "" "%~dp0\modloader\quilt-installer.exe"
+START "" "%temp%\mc-mods-installer\quilt-installer.exe"
+)

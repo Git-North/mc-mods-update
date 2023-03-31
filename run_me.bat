@@ -1,14 +1,5 @@
 
-
 chcp 65001
-
-:: set LOGFILE=batch.log
-:: call :LOG > %LOGFILE%
-:: exit /B
-
-:: :LOG
-:: [ your script goes here ]
-
 
 curl -s https://www.7-zip.org/a/7zr.exe -o resources/7zr.exe
 
@@ -29,7 +20,7 @@ set !javafolder!\javaw.exe=javapath
 
 
 echo #########
-set /p pathchoice=Would you like to choose your minecraft path rather than the default one? "(Default path is %appdata%\minecraft)" [Default selection is 'No' which is recommended for most people]
+set /p pathchoice=Would you like to choose your minecraft path rather than the default one? "(Default path is %appdata%\.minecraft)" [Default selection is 'No' which is recommended for most people]
 echo #########
 
 IF '%pathchoice%' == '' GOTO rest1
@@ -79,19 +70,10 @@ xcopy *.* ".\.disabled\%date:~-10,2%.%date:~7,2%.%date:~-4,4%;%subkey1%" /i
 del *.jar
 
 
-::cd !pending!
-::echo ################################################################################################
-::SET /p choice=Would you like to install the repo mods or do just install local mods? [Default is '1']
-::echo ################################################################################################
-
-::IF NOT '%choice%'=='' SET choice=%choice:~0,1%
-::IF /i '%choice%'=='1' GOTO curlyes
-::IF '%choice%'=='' GOTO curlyes
-::IF /i '%choice%'=='2' GOTO rest
-
-
 :curlyes
 for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -L -k "%%A" -O
+del latest
+
 
 GOTO rest2
 :rest2
@@ -105,11 +87,12 @@ for %%f in (*.zip) do tar -xf "%%f"
 del *.zip *.7z *.rar
 xcopy *.* !dest!
 
-cd "%~dp0\resources\"
+mkdir %~dp0\modloader
+cd "%~dp0\modloader"
 for /f "tokens=2" %%B in ('quiltmc-path.cmd') do echo %%B >> curlthis.tmp
 powershell -command (Get-Content -Path '.\curlthis.tmp' -TotalCount 2)[-1] > latest.tmp
 for /f "Tokens=* Delims=" %%Q in (latest.tmp) do curl -L %%Q -o "quilt-installer.exe"
 del *.tmp
 
-START "" "%~dp0\resources\quilt-installer.exe"
+START "" "%~dp0\modloader\quilt-installer.exe"
 )

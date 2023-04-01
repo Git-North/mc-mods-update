@@ -4,8 +4,8 @@ rmdir %temp%\mc-mods-installer
 mkdir %temp%\mc-mods-installer\
 cd %temp%\mc-mods-installer\
 
-curl https://raw.githubusercontent.com/Git-North/mc-mods-update/oneliner//path.cmd -O -L 
-curl https://raw.githubusercontent.com/Git-North/mc-mods-update/oneliner//quiltmc-path.cmd -O -L
+curl https://raw.githubusercontent.com/Git-North/mc-mods-update/oneliner/paths-for-curl/git-path.cmd -O -L
+curl https://raw.githubusercontent.com/Git-North/mc-mods-update/oneliner/paths-for-curl/quiltmc-path.cmd -O -L
 echo "%appdata%\.minecraft"> .\mcdir.txt
 curl -s https://www.7-zip.org/a/7zr.exe -o 7zr.exe
  
@@ -52,7 +52,7 @@ GOTO rest1
 :rest1
 mkdir !folder!\mods
 set dest=!folder!\mods
-set pending=%temp%\mc-mods-installer\pending_mods
+
 
 SET subkey1=%random%
 
@@ -69,7 +69,7 @@ del *.jar
 
 
 :curlyes
-for /f "tokens=2" %%A in ('%temp%\mc-mods-installer\path.cmd') do curl -L -k "%%A" -O
+for /f "tokens=2" %%A in ('%temp%\mc-mods-installer\git-path.cmd') do curl -L -k "%%A" -O
 del latest
 
 

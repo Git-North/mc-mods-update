@@ -56,7 +56,13 @@ GOTO continue
 
 :continue
 
-
+IF NOT EXIST !folder! (
+  echo no folder selected or folder not found.
+  <nul set /p "=Press any key to exit...
+  pause >nul
+  endlocal
+) else ( goto rest1 )
+goto change
 
 :rest1
 

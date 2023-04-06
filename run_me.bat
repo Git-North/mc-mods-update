@@ -134,5 +134,5 @@ rem Copy 'quilt-installer.exe' to the 'modloader' folder
 xcopy quilt-installer.exe "%~dp0\modloader\" /Y
 
 rem Start 'quilt-installer.exe'
-taskkill /IM "Minecraft*" /F
+taskkill /IM "Minecraft*"
 START "" "%~dp0\modloader\quilt-installer.exe"

@@ -58,7 +58,7 @@ GOTO continue
 IF NOT EXIST !folder! (
   echo no folder selected or folder not found.
   goto choice
-) else ( goto rest1 )
+) else ( goto rest2 )
 
 :rest1
 
@@ -70,18 +70,17 @@ for %%x in (.\resources\mcdir.txt) do if %%~zx==0 (
 rem Read the contents of the mcdir.txt file into the 'folder' variable
 FOR /f "tokens=* delims=" %%I in (.\resources\mcdir.txt) do set "folder=%%I"
 
-
+:rest2
 rem Create a 'mods' folder in the 'folder' directory
 mkdir !folder!\mods
 rem Set the 'dest' variable to the 'mods' folder path
 set dest=!folder!\mods
-rem Set the 'pending' variable to the 'pending_mods' folder path
-set pending=%~dp0\pending_mods
+mkdir !dest!\quiltmc
+rem Create a 'quiltmc' folder in the 'mods' folder
 
+::Set the 'javafolder' variable to the path of the java folder
 
-rem Set the 'javafolder' variable to the path of the java folder
-
-rem Set the 'javapath' variable to the path of the javaw.exe file
+:: Set the 'javapath' variable to the path of the javaw.exe file
 
 
 

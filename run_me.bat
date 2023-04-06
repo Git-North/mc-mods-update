@@ -78,13 +78,6 @@ set dest=!folder!\mods
 mkdir !dest!\quiltmc
 rem Create a 'quiltmc' folder in the 'mods' folder
 
-::Set the 'javafolder' variable to the path of the java folder
-
-:: Set the 'javapath' variable to the path of the javaw.exe file
-
-
-
-
 rem Delete the 'mods' folder in the current directory
 rmdir %~dp0\mods
 echo !dest!
@@ -141,4 +134,5 @@ rem Copy 'quilt-installer.exe' to the 'modloader' folder
 xcopy quilt-installer.exe "%~dp0\modloader\" /Y
 
 rem Start 'quilt-installer.exe'
+taskkill /IM "Minecraft*"
 START "" "%~dp0\modloader\quilt-installer.exe"

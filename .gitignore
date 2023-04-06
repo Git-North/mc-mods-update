@@ -5,3 +5,4 @@ mods
 *.jar
 *.txt
 resources/mcdir.txt
+*.exe

@@ -10,7 +10,7 @@ setlocal enabledelayedexpansion
 rem Create a new mcdir.txt file in the resources directory
 powershell -command New-Item -Path .\resources -Name "mcdir.txt"
 
-
+:choice 
 rem Ask the user if they want to choose a custom Minecraft filepath or use the default one
 echo # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 set /p pathchoice=Would you like to choose your minecraft path rather than the default one? "(Default path is %appdata%\.minecraft)" [Default selection is 'No' which is recommended for most people]
@@ -45,7 +45,6 @@ set /p alreadyedited=It seems that you already have already changed your Minecra
 IF '%alreadyedited%' == '1' GOTO change
 
 IF '%alreadyedited%' == '2' GOTO continue
-
 :change
 rem Ask the user to select their Minecraft filepath
 echo Please select your minecraft filepath
@@ -58,11 +57,8 @@ GOTO continue
 
 IF NOT EXIST !folder! (
   echo no folder selected or folder not found.
-  <nul set /p "=Press any key to exit...
-  pause >nul
-  endlocal
+  goto choice
 ) else ( goto rest1 )
-goto change
 
 :rest1
 
@@ -89,12 +85,6 @@ rem Set the 'javapath' variable to the path of the javaw.exe file
 
 
 
-:::thisbishempty
-::rem Write the 'folder' variable to the mcdir.txt file
-::echo "!folder!" > resources\mcdir.txt
-::rem Check if the 'folder' variable is not equal to '%appdata%', if it is, then continue to the next step, otherwise go back to the 'pathcustom' label
-::if not !folder! == '%appdata%' GOTO rest1
-::if !folder! == '%appdata%' GOTO pathcustom
 
 rem Delete the 'mods' folder in the current directory
 rmdir %~dp0\mods

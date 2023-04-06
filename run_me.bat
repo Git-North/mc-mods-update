@@ -78,13 +78,6 @@ set dest=!folder!\mods
 mkdir !dest!\quiltmc
 rem Create a 'quiltmc' folder in the 'mods' folder
 
-::Set the 'javafolder' variable to the path of the java folder
-
-rem Set the 'javapath' variable to the path of the javaw.exe file
-
-
-
-
 rem Delete the 'mods' folder in the current directory
 rmdir %~dp0\mods
 echo !dest!

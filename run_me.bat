@@ -98,7 +98,8 @@ xcopy *.* ".\.disabled\%date:~-10,2%.%date:~7,2%.%date:~-4,4%;%subkey1%" /i
 
 rem Delete all .jar files in the 'mods' folder
 del *.jar
-
+del quilt\*.jar
+del quiltmc\*.jar
 :curlyes
 rem Download the resource at the URL specified in the 'path.cmd' file and save it in the current directory
 for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -L -k "%%A" -O

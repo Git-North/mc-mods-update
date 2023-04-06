@@ -13,4 +13,5 @@ This is basically just an installer I made for my minecraft you can use it howev
 
 # Documentation
 - how it works
+
 wip

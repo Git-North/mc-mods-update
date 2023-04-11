@@ -4,8 +4,8 @@ rmdir %temp%\mc-mods-installer
 mkdir %temp%\mc-mods-installer\
 cd %temp%\mc-mods-installer\
 
-curl https://raw.githubusercontent.com/Git-North/mc-mods-update/oneliner/paths-for-curl/git-path.cmd -O -L
-curl https://raw.githubusercontent.com/Git-North/mc-mods-update/oneliner/paths-for-curl/quiltmc-path.cmd -O -L
+curl https://raw.githubusercontent.com/Git-North/mc-mods-update/oneliner/paths-for-curl/git-path.cmd -O -L -k   
+curl https://raw.githubusercontent.com/Git-North/mc-mods-update/oneliner/paths-for-curl/quiltmc-path.cmd -O -L -k
 echo "%appdata%\.minecraft"> .\mcdir.txt
 curl -s https://www.7-zip.org/a/7zr.exe -o 7zr.exe
  
@@ -89,7 +89,7 @@ mkdir %temp%\mc-mods-installer\
 cd "%temp%\mc-mods-installer\"
 for /f "tokens=2" %%B in ('quiltmc-path.cmd') do echo %%B >> curlthis.tmp
 powershell -command (Get-Content -Path '.\curlthis.tmp' -TotalCount 2)[-1] > latest.tmp
-for /f "Tokens=* Delims=" %%Q in (latest.tmp) do curl -L %%Q -o "quilt-installer.exe"
+for /f "Tokens=* Delims=" %%Q in (latest.tmp) do curl -k -L %%Q -o "quilt-installer.exe"
 del *.tmp
 
 START "" "%temp%\mc-mods-installer\quilt-installer.exe"

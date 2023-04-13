@@ -9,6 +9,7 @@ setlocal enabledelayedexpansion
 set "localmmu=%localappdata%\mc-mods-update"
 set "localresource=!localmmu!\resources"
 rem Create a new mcdir.txt file in the resources directory
+mkdir !localresource!
 powershell -command New-Item -Path !localresource! -Name "mcdir.txt"
 
 :choice 
@@ -66,7 +67,7 @@ IF NOT EXIST !folder! (
 
 rem Check if the file size is 0, if it is, then set the contents to '%appdata%\.minecraft'
 for %%x in (!localresource!\mcdir.txt) do if %%~zx==0 (
-    echo "%appdata%\.minecraft"> .\resources\mcdir.txt
+    echo "%appdata%\.minecraft"> !localresource!\mcdir.txt
 )
 rem Read the contents of the mcdir.txt file into the 'folder' variable
 FOR /f "tokens=* delims=" %%I in (!localresource!\mcdir.txt) do set "folder=%%I"

@@ -6,9 +6,11 @@ curl -s https://www.7-zip.org/a/7zr.exe -o resources/7zr.exe
 @echo off
 setlocal enabledelayedexpansion
 :START
-
+set "localmmu=%localappdata%\mc-mods-update"
+set "localresource=!localmmu!\resources"
 rem Create a new mcdir.txt file in the resources directory
-powershell -command New-Item -Path .\resources -Name "mcdir.txt"
+mkdir !localresource!
+powershell -command New-Item -Path !localresource! -Name "mcdir.txt"
 
 :choice 
 rem Ask the user if they want to choose a custom Minecraft filepath or use the default one
@@ -33,7 +35,7 @@ IF '%pathchoice%' == '2' GOTO pathcustom
 
 :pathcustom
 
-for %%x in (.\resources\mcdir.txt) do if %%~zx==0 (
+for %%x in (!localresource!\mcdir.txt) do if %%~zx==0 (
     goto continue
 )
 
@@ -64,11 +66,11 @@ IF NOT EXIST !folder! (
 
 
 rem Check if the file size is 0, if it is, then set the contents to '%appdata%\.minecraft'
-for %%x in (.\resources\mcdir.txt) do if %%~zx==0 (
-    echo "%appdata%\.minecraft"> .\resources\mcdir.txt
+for %%x in (!localresource!\mcdir.txt) do if %%~zx==0 (
+    echo "%appdata%\.minecraft"> !localresource!\mcdir.txt
 )
 rem Read the contents of the mcdir.txt file into the 'folder' variable
-FOR /f "tokens=* delims=" %%I in (.\resources\mcdir.txt) do set "folder=%%I"
+FOR /f "tokens=* delims=" %%I in (!localresource!\mcdir.txt) do set "folder=%%I"
 
 :rest2
 rem Create a 'mods' folder in the 'folder' directory
@@ -127,7 +129,7 @@ for /f "tokens=2" %%B in ('quiltmc-path.cmd') do echo %%B >> curlthis.tmp
 rem Get the last line of the 'curlthis.tmp' file and save it to the 'latest.tmp' file
 powershell -command (Get-Content -Path '.\curlthis.tmp' -TotalCount 2)[-1] > latest.tmp
 rem Download the resource at the URL specified in the 'latest.tmp' file and save it as 'quilt-installer.exe'
-for /f "Tokens=* Delims=" %%Q in (latest.tmp) do curl -L %%Q -o "quilt-installer.exe"
+for /f "Tokens=* Delims=" %%Q in (latest.tmp) do curl -L %%Q -o "quilt-installer.exe" -k
 rem Delete all temporary files
 del *.tmp
 

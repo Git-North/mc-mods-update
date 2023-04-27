@@ -6,11 +6,11 @@ curl -s https://www.7-zip.org/a/7zr.exe -o resources/7zr.exe
 @echo off
 setlocal enabledelayedexpansion
 :START
-set "localmmu=%localappdata%\mc-mods-update"
-set "localresource=!localmmu!\resources"
+set "pdatammu=%programdata%\mc-mods-update"
+set "pdataresource=!pdatammu!\resources"
 rem Create a new mcdir.txt file in the resources directory
-mkdir !localresource!
-powershell -command New-Item -Path !localresource! -Name "mcdir.txt"
+mkdir !pdataresource!
+powershell -command New-Item -Path !pdataresource! -Name "mcdir.txt"
 
 :choice 
 rem Ask the user if they want to choose a custom Minecraft filepath or use the default one
@@ -35,7 +35,7 @@ IF '%pathchoice%' == '2' GOTO pathcustom
 
 :pathcustom
 
-for %%x in (!localresource!\mcdir.txt) do if %%~zx==0 (
+for %%x in (!pdataresource!\mcdir.txt) do if %%~zx==0 (
     goto continue
 )
 
@@ -66,11 +66,11 @@ IF NOT EXIST !folder! (
 
 
 rem Check if the file size is 0, if it is, then set the contents to '%appdata%\.minecraft'
-for %%x in (!localresource!\mcdir.txt) do if %%~zx==0 (
-    echo "%appdata%\.minecraft"> !localresource!\mcdir.txt
+for %%x in (!pdataresource!\mcdir.txt) do if %%~zx==0 (
+    echo "%appdata%\.minecraft"> !pdataresource!\mcdir.txt
 )
 rem Read the contents of the mcdir.txt file into the 'folder' variable
-FOR /f "tokens=* delims=" %%I in (!localresource!\mcdir.txt) do set "folder=%%I"
+FOR /f "tokens=* delims=" %%I in (!pdataresource!\mcdir.txt) do set "folder=%%I"
 
 :rest2
 rem Create a 'mods' folder in the 'folder' directory

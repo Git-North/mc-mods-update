@@ -1,4 +1,6 @@
-# My modset is for Fabric/Quilt and will not work on forge. This branch only exists for forking 
+# AS OF NOW THIS FORK DOES NOT WORK (WiP)
+
+### My modset is for Fabric/Quilt and will not work on forge. This branch only exists for forking 
 
 This is basically just an installer I made for my minecraft you can use it however you like
 
@@ -11,7 +13,7 @@ This is basically just an installer I made for my minecraft you can use it howev
 - Commands will do the rest
 
 
-# Documentation
+## Documentation
 - how it works
 
 wip

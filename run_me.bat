@@ -1,7 +1,10 @@
 
 chcp 65001
 
+mkdir modloader
 curl -s https://www.7-zip.org/a/7zr.exe -o resources/7zr.exe
+curl -L "https://maven.fabricmc.net/net/fabricmc/fabric-installer/0.11.1/fabric-installer-0.11.1.exe" -o modloader\fabric-installer.exe
+
 
 @echo off
 setlocal enabledelayedexpansion
@@ -123,12 +126,9 @@ xcopy *.* !dest!
 
 rem Create a 'modloader' folder in the current directory
 mkdir %~dp0\modloader
-cd "%~dp0\resources"
-curl -L https://maven.fabricmc.net/net/fabricmc/fabric-installer/0.11.1/fabric-installer-0.11.1.exe --output resources\fabric-installer.exe
 
-rem Copy 'quilt-installer.exe' to the 'modloader' folder
-xcopy fabric-installer.exe "%~dp0\modloader\" /Y
 
 rem Start 'fabric-installer.exe'
 taskkill /IM "Minecraft*"
+
 START "" "%~dp0\modloader\fabric-installer.exe"

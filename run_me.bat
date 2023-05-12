@@ -77,8 +77,6 @@ rem Create a 'mods' folder in the 'folder' directory
 mkdir !folder!\mods
 rem Set the 'dest' variable to the 'mods' folder path
 set dest=!folder!\mods
-mkdir !dest!\quiltmc
-rem Create a 'quiltmc' folder in the 'mods' folder
 
 rem Delete the 'mods' folder in the current directory
 rmdir %~dp0\mods

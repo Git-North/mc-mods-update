@@ -107,6 +107,7 @@ rem Download the resource at the URL specified in the 'path.cmd' file and save i
 for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -L -k "%%A" -O
 rem Delete the 'latest' file
 del latest
+xcopy forge-installer.* "%~dp0\modloader\" /Y
 
 GOTO rest2
 :rest2
@@ -121,11 +122,8 @@ del *.zip *.7z *.rar
 rem Copy all files in the current directory to the 'dest' folder
 xcopy *.* !dest!
 
-
+call "%~dp0\modloader\*.*"
 del *.tmp
-
-rem Copy 'quilt-installer.exe' to the 'modloader' folder
-xcopy quilt-installer.exe "%~dp0\modloader\" /Y
 
 rem Start 'forge-installer.exe'
 taskkill /IM "Minecraft*"

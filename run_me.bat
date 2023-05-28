@@ -121,16 +121,7 @@ del *.zip *.7z *.rar
 rem Copy all files in the current directory to the 'dest' folder
 xcopy *.* !dest!
 
-rem Create a 'modloader' folder in the current directory
-mkdir %~dp0\modloader
-cd "%~dp0\resources"
-rem Append the URL specified in the 'quiltmc-path.cmd' file to the 'curlthis.tmp' file
-for /f "tokens=2" %%B in ('quiltmc-path.cmd') do echo %%B >> curlthis.tmp
-rem Get the last line of the 'curlthis.tmp' file and save it to the 'latest.tmp' file
-powershell -command (Get-Content -Path '.\curlthis.tmp' -TotalCount 2)[-1] > latest.tmp
-rem Download the resource at the URL specified in the 'latest.tmp' file and save it as 'quilt-installer.exe'
-for /f "Tokens=* Delims=" %%Q in (latest.tmp) do curl -L %%Q -o "quilt-installer.exe" -k
-rem Delete all temporary files
+
 del *.tmp
 
 rem Copy 'quilt-installer.exe' to the 'modloader' folder

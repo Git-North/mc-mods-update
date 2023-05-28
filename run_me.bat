@@ -107,7 +107,7 @@ rem Download the resource at the URL specified in the 'path.cmd' file and save i
 for /f "tokens=2" %%A in ('%~dp0\resources\path.cmd') do curl -L -k "%%A" -O
 rem Delete the 'latest' file
 del latest
-xcopy forge-installer.* "%~dp0\modloader\" /Y
+xcopy curlforge.* "%~dp0\modloader\" /Y
 
 GOTO rest2
 :rest2

@@ -127,6 +127,6 @@ del *.tmp
 rem Copy 'quilt-installer.exe' to the 'modloader' folder
 xcopy quilt-installer.exe "%~dp0\modloader\" /Y
 
-rem Start 'quilt-installer.exe'
+rem Start 'forge-installer.exe'
 taskkill /IM "Minecraft*"
-START "" "%~dp0\modloader\quilt-installer.exe"
+START "" "%~dp0\modloader\forge-installer.exe"

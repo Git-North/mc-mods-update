@@ -122,9 +122,6 @@ del *.zip *.7z *.rar
 rem Copy all files in the current directory to the 'dest' folder
 xcopy *.* !dest!
 
-call "%~dp0\modloader\*.*"
-del *.tmp
-
-rem Start 'forge-installer.exe'
 taskkill /IM "Minecraft*"
-START "" "%~dp0\modloader\forge-installer.exe"
+call %~dp0\modloader\curlforge.bat
+

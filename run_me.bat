@@ -6,7 +6,7 @@ curl -s https://www.7-zip.org/a/7zr.exe -o resources/7zr.exe
 @echo off
 setlocal enabledelayedexpansion
 :START
-set "pdatammu=%programdata%\mc-mods-update"
+set "pdatammu=%localappdata%\git-north\mc-mods-update"
 set "pdataresource=!pdatammu!\resources"
 rem Create a new mcdir.txt file in the resources directory
 mkdir !pdataresource!

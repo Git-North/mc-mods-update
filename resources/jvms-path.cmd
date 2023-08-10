@@ -1,0 +1,1 @@
+curl https://api.github.com/repos/ystyle/jvms/releases/latest -k -S | findstr browser_download_url

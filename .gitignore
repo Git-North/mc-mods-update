@@ -1,0 +1,5 @@
+
+*.exe
+modloader/curlforge.bat
+*.jar
+mods

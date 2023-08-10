@@ -4,7 +4,14 @@ chcp 65001
 curl -s https://www.7-zip.org/a/7zr.exe -o resources/7zr.exe
 
 for /f "tokens=2" %%J in ('%~dp0\resources\jvms-path.cmd') do curl -L -k "%%J" -o resources/jvms.exe
-
+if %errorlevel%==1 (
+    @echo Java not found in path.
+    jvms
+    jvms init
+    jvms rls -a 
+    jvms install zulu17.44.15-ca-jdk17.0.8
+    jvms switch zulu17.44.15-ca-jdk17.0.8
+)
 
 @echo off
 setlocal enabledelayedexpansion
@@ -129,12 +136,5 @@ taskkill /IM "Minecraft*"
 call %~dp0\modloader\curlforge.bat
 cd %~dp0\resources
 where java >nul 2>nul
-if %errorlevel%==1 (
-    @echo Java not found in path.
-    jvms
-    jvms init
-    jvms rls -a 
-    jvms install zulu17.44.15-ca-jdk17.0.8
-    jvms switch zulu17.44.15-ca-jdk17.0.8
-)
+
 powershell

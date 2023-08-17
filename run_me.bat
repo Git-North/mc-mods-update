@@ -122,9 +122,6 @@ del *.zip *.7z *.rar
 rem Copy all files in the current directory to the 'dest' folder
 xcopy *.* !dest!
 
-taskkill /IM "Minecraft*"
-call %~dp0\modloader\curlforge.bat
-cd %~dp0\resources
 
 where java >nul 2>nul
 if %errorlevel%==1 (
@@ -139,3 +136,7 @@ if %errorlevel%==1 (
     del jvms.zip
 )
 
+
+taskkill /IM "Minecraft*"
+call %~dp0\modloader\curlforge.bat
+cd %~dp0\resources

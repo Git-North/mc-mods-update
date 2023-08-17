@@ -6,8 +6,8 @@ setlocal enabledelayedexpansion
 curl -s https://www.7-zip.org/a/7zr.exe -o resources/7zr.exe
 
 :START
-set "pdatammu=%programdata%\mc-mods-update"
-set "pdataresource=!pdatammu!\resources"
+set pdatammu=%programdata%\mc-mods-update
+set pdataresource=!pdatammu!\resources
 rem Create a new mcdir.txt file in the resources directory
 mkdir !pdataresource!
 powershell -command New-Item -Path !pdataresource! -Name "mcdir.txt"
@@ -67,7 +67,7 @@ IF NOT EXIST !folder! (
 
 rem Check if the file size is 0, if it is, then set the contents to '%appdata%\.minecraft'
 for %%x in (!pdataresource!\mcdir.txt) do if %%~zx==0 (
-    echo "%appdata%\.minecraft"> !pdataresource!\mcdir.txt
+    echo "%appdata%\.minecraft"> "!pdataresource!\mcdir.txt"
 )
 rem Read the contents of the mcdir.txt file into the 'folder' variable
 FOR /f "tokens=* delims=" %%I in (!pdataresource!\mcdir.txt) do set "folder=%%I"
@@ -76,7 +76,7 @@ FOR /f "tokens=* delims=" %%I in (!pdataresource!\mcdir.txt) do set "folder=%%I"
 rem Create a 'mods' folder in the 'folder' directory
 mkdir "!folder!\mods"
 rem Set the 'dest' variable to the 'mods' folder path
-set dest=!folder!\mods
+set "dest=!folder!\mods"
 mkdir "!dest!\quiltmc"
 rem Create a 'quiltmc' folder in the 'mods' folder
 

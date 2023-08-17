@@ -3,3 +3,4 @@
 modloader/curlforge.bat
 *.jar
 mods
+*.log

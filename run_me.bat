@@ -74,14 +74,14 @@ FOR /f "tokens=* delims=" %%I in (!pdataresource!\mcdir.txt) do set "folder=%%I"
 
 :rest2
 rem Create a 'mods' folder in the 'folder' directory
-mkdir !folder!\mods
+mkdir "!folder!\mods"
 rem Set the 'dest' variable to the 'mods' folder path
 set dest=!folder!\mods
-mkdir !dest!\quiltmc
+mkdir "!dest!\quiltmc"
 rem Create a 'quiltmc' folder in the 'mods' folder
 
 rem Delete the 'mods' folder in the current directory
-rmdir %~dp0\mods
+rmdir "%~dp0\mods"
 echo !dest!
 rem Create a symbolic link to the 'dest' folder for the 'mods' folder in the current directory
 mklink /D "%~dp0\mods" "!dest!"
@@ -95,7 +95,7 @@ SET subkey1=%subkey1:1=b%
 SET subkey1=%subkey1:2=c%
 
 rem Copy all files in the 'mods' folder to a new folder with the name 'mm.dd.yyyy;subkey1' in the 'disabled' folder
-cd !folder!\mods
+cd "!folder!\mods"
 xcopy *.* ".\.disabled\%date:~-10,2%.%date:~7,2%.%date:~-4,4%;%subkey1%" /i
 
 rem Delete all .jar files in the 'mods' folder
